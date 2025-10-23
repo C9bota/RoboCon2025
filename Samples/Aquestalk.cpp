@@ -7,7 +7,7 @@ i2s_config_t i2s_config = {
     .sample_rate = 24000,
     .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
     .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,
-    .communication_format = (i2s_comm_format_t) I2S_COMM_FORMAT_STAND_MSB,
+    .communication_format = (i2s_comm_format_t)I2S_COMM_FORMAT_STAND_MSB,
     .intr_alloc_flags = 0,
     .dma_buf_count = 4,
     .dma_buf_len = 384,
@@ -25,11 +25,11 @@ void setup() {
 }
 void loop() {
     int iret = CAqTkPicoF_SetKoe((const uint8_t*)"ohayo--", 120, 0xffffU); //Set speaking speed 120
-    or(;;) {
+    or (;;) {
         int16_t wav[32];
         uint16_t len;
         iret = CAqTkPicoF_SyntheFrame(wav, &len);
-        if(iret) {
+        if (iret) {
             // I2S の最終バッファをクリアさせる
             vTaskDelay(100);
             //i2s_zero_dma_buffer((i2s_port_t)i2s_num);
@@ -39,27 +39,27 @@ void loop() {
         int i;
         size_t transBytes = 0;
         uint16_t sample[2];
-        for(i = 0; i < len; i++){
+        for (i = 0; i < len; i++) {
             esp_err_t ret = ESP_OK;
             int16_t wav3[3];
             AqResample_Conv(wav[i], wav3);
             // I2S の DMA バッファへ書込み
-            for(int k = 0; k < 3; k++) {
-                sample[0] = sample[1] = ((uint16_t)wav3[k])^0x8000U; // モノラルをステレオデータに変換(単純多重化)
-                ret = i2s_write((i2s_port_t)i2s_num, (const char*)sample, sizeof(uint16_t)*1, &transBytes, portMAX_DELAY);
-                if(ret != ESP_OK) {
+            for (int k = 0; k < 3; k++) {
+                sample[0] = sample[1] = ((uint16_t)wav3[k]) ^ 0x8000U; // モノラルをステレオデータに変換(単純多重化)
+                ret = i2s_write((i2s_port_t)i2s_num, (const char*)sample, sizeof(uint16_t) * 1, &transBytes, portMAX_DELAY);
+                if (ret != ESP_OK) {
                     // エラー
                     break;
                 }
-                    if(transBytes < sizeof(uint16_t) * 1) {
+                if (transBytes < sizeof(uint16_t) * 1) {
                     // タイムアウト
                     ret = ESP_FAIL;
                     break;
-                    }
+                }
             }
-        if(ret != ESP_OK) {
-        break;
-        }
+            if (ret != ESP_OK) {
+                break;
+            }
         }
     }
     delay(500);
