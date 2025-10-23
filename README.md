@@ -14,18 +14,26 @@ RoboCon2025/
 ├── Prototype/             # プロトタイプ開発
 │   ├── Common/            # 共通ライブラリ・ユーティリティ
 │   │   └── .gitkeep
-│   ├── Name1/             # プロトタイプ1
+│   ├── Kubota/            # 久保田のプロトタイプ
 │   │   └── .gitkeep
-│   ├── Name2/             # プロトタイプ2
+│   ├── Masuda/            # 増田のプロトタイプ
 │   │   └── .gitkeep
-│   └── Name3/             # プロトタイプ3
+│   └── Nakagawa/          # 中川のプロトタイプ
 │       └── .gitkeep
 └── Samples/               # サンプルコード・テスト用
-    └── .gitkeep
+    ├── .gitkeep
+    ├── Aquestalk.cpp      # 音声合成サンプル
+    ├── Beep.cpp           # ビープ音出力サンプル
+    └── RGB.cpp            # RGB LED制御サンプル
 ```
 
 - **Production/**: 本番環境で使用する最終的なコード
 - **Prototype/**: 開発中のプロトタイプコード
   - **Common/**: 各プロトタイプで共通して使用するライブラリやユーティリティ
-  - **Name1~3/**: 各種プロトタイプの実装
+  - **Kubota/**: 久保田のプロトタイプ実装
+  - **Masuda/**: 増田のプロトタイプ実装
+  - **Nakagawa/**: 中川のプロトタイプ実装
 - **Samples/**: 実験用のサンプルコードやテストコード
+  - [`Aquestalk.cpp`](Samples/Aquestalk.cpp): AquesTalkを使用した音声合成のサンプル
+  - [`Beep.cpp`](Samples/Beep.cpp): PWMを使用したビープ音出力のサンプル
+  - [`RGB.cpp`](Samples/RGB.cpp): RGB LEDの制御サンプル
