@@ -10,18 +10,18 @@ https://personal.qumcum.com/robo_adjust/
 RoboCon2025/
 ├── README.md              # このファイル
 ├── Production/            # 本番用コード
-│   └── .gitignore
+│   └── .gitkeep
 ├── Prototype/             # プロトタイプ開発
 │   ├── Common/            # 共通ライブラリ・ユーティリティ
-│   │   └── .gitignore
+│   │   └── .gitkeep
 │   ├── Name1/             # プロトタイプ1
-│   │   └── .gitignore
+│   │   └── .gitkeep
 │   ├── Name2/             # プロトタイプ2
-│   │   └── .gitignore
+│   │   └── .gitkeep
 │   └── Name3/             # プロトタイプ3
-│       └── .gitignore
+│       └── .gitkeep
 └── Samples/               # サンプルコード・テスト用
-    └── .gitignore
+    └── .gitkeep
 ```
 
 - **Production/**: 本番環境で使用する最終的なコード
