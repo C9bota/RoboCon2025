@@ -10,22 +10,30 @@ https://personal.qumcum.com/robo_adjust/
 RoboCon2025/
 ├── README.md              # このファイル
 ├── Production/            # 本番用コード
-│   └── .gitignore
+│   └── .gitkeep
 ├── Prototype/             # プロトタイプ開発
 │   ├── Common/            # 共通ライブラリ・ユーティリティ
-│   │   └── .gitignore
-│   ├── Name1/             # プロトタイプ1
-│   │   └── .gitignore
-│   ├── Name2/             # プロトタイプ2
-│   │   └── .gitignore
-│   └── Name3/             # プロトタイプ3
-│       └── .gitignore
+│   │   └── .gitkeep
+│   ├── Kubota/            # 久保田のプロトタイプ
+│   │   └── .gitkeep
+│   ├── Masuda/            # 増田のプロトタイプ
+│   │   └── .gitkeep
+│   └── Nakagawa/          # 中川のプロトタイプ
+│       └── .gitkeep
 └── Samples/               # サンプルコード・テスト用
-    └── .gitignore
+    ├── .gitkeep
+    ├── Aquestalk.cpp      # 音声合成サンプル
+    ├── Beep.cpp           # ビープ音出力サンプル
+    └── RGB.cpp            # RGB LED制御サンプル
 ```
 
 - **Production/**: 本番環境で使用する最終的なコード
 - **Prototype/**: 開発中のプロトタイプコード
   - **Common/**: 各プロトタイプで共通して使用するライブラリやユーティリティ
-  - **Name1~3/**: 各種プロトタイプの実装
+  - **Kubota/**: 久保田のプロトタイプ実装
+  - **Masuda/**: 増田のプロトタイプ実装
+  - **Nakagawa/**: 中川のプロトタイプ実装
 - **Samples/**: 実験用のサンプルコードやテストコード
+  - [`Aquestalk.cpp`](Samples/Aquestalk.cpp): AquesTalkを使用した音声合成のサンプル
+  - [`Beep.cpp`](Samples/Beep.cpp): PWMを使用したビープ音出力のサンプル
+  - [`RGB.cpp`](Samples/RGB.cpp): RGB LEDの制御サンプル
