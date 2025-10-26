@@ -28,4 +28,14 @@ const std::map<SERVO_COMMAND, BufferSizes> COMMAND_BUFFER_SIZES = {
     {GET_SERVO_POSITION_BY_ANGLE, {2, 2}}
 };
 
+enum SERVO_SYNC_MODE {
+    ANSUNC_MODE = 0,
+    SYNC_MODE = 1
+};
+
+enum SERVO_PULSE_OUTPUT {
+    DISABLE = 0,
+    ENABLE = 1
+};
+
 # endif
