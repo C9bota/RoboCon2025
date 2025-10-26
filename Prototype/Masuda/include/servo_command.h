@@ -1,6 +1,8 @@
 # ifdef SERVO_COMMAND_H
 # define SERVO_COMMAND_H
 
+#include <map>
+
 enum SERVO_COMMAND {
     SET_SERVO_SYNC_MODE = 0,
     START_SERVO_SYNC = 1,
@@ -9,6 +11,21 @@ enum SERVO_COMMAND {
     SET_SERVO_TARGET_BY_RECTANGLE = 4,
     GET_SERVO_POSITION_BY_PULSE_WIDTH = 5,
     GET_SERVO_POSITION_BY_RECTANGLE = 6
+};
+
+struct BufferSizes {
+    int send_buffer_size;
+    int receive_buffer_size;
+};
+
+const std::map<SERVO_COMMAND, BufferSizes> COMMAND_BUFFER_SIZES = {
+    {SET_SERVO_SYNC_MODE, {2, 0}},
+    {START_SERVO_SYNC, {1, 0}},
+    {ALLOW_PWM_PULSE_OUTPUT, {3, 0}},
+    {SET_SERVO_TARGET_BY_PULSE_WIDTH, {6, 0}},
+    {SET_SERVO_TARGET_BY_RECTANGLE, {6, 0}},
+    {GET_SERVO_POSITION_BY_PULSE_WIDTH, {2, 2}},
+    {GET_SERVO_POSITION_BY_RECTANGLE, {2, 2}}
 };
 
 # endif
