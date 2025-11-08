@@ -1,4 +1,4 @@
-# ifdef SERVO_CHANNEL_H
+# ifndef SERVO_CHANNEL_H
 # define SERVO_CHANNEL_H
 
 enum SERVO_CHANNEL {

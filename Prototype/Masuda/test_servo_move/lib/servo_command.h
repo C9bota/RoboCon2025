@@ -1,5 +1,5 @@
-# ifdef SERVO_COMMAND_H
-# define SERVO_COMMAND_H
+#ifndef SERVO_COMMAND_H
+#define SERVO_COMMAND_H
 
 #include <map>
 

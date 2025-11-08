@@ -1,5 +1,5 @@
-#include "servo_move.h"
-#include "<Wire.h>" // I2C通信を使用するために必要
+#include "../lib/servo_move.h"
+#include <Wire.h> // I2C通信を使用するために必要
 
 // サーボモータ動作モード設定
 void SetServoSyncMode(SERVO_SYNC_MODE mode) {
@@ -37,7 +37,7 @@ void AllowPwmPulseOutput(SERVO_CHANNEL channel, SERVO_PULSE_OUTPUT output) {
 // サーボモータ目標位置設定（角度指定）
 void SetServoTargetByAngle(SERVO_CHANNEL channel, int angle, int milliseconds) {
     uint8_t cmd[6];
-    cmd[0] = SET_SERVO_TARGET_BY_RECTANGLE; // コマンド番号
+    cmd[0] = SET_SERVO_TARGET_BY_ANGLE; // コマンド番号
     cmd[1] = channel;                       // 対象のチャンネル
     memcpy(&cmd[2], &angle, sizeof(angle)); // 目標角度（1/10度単位）
     memcpy(&cmd[4], &milliseconds, sizeof(milliseconds)); // 動作時間（ミリ秒）
@@ -51,7 +51,7 @@ void SetServoTargetByAngle(SERVO_CHANNEL channel, int angle, int milliseconds) {
 int GetServoPositionByAngle(SERVO_CHANNEL channel) {
     uint8_t cmd[2];
     uint8_t reply[2];
-    cmd[0] = GET_SERVO_POSITION_BY_RECTANGLE; // コマンド番号
+    cmd[0] = GET_SERVO_POSITION_BY_ANGLE; // コマンド番号
     cmd[1] = channel;                         // 対象のチャンネル
 
     Wire.beginTransmission(SERVO_IC_I2C_ADDR);
