@@ -1,4 +1,4 @@
-# ifdef PIN_IO
+# ifndef PIN_IO
 # define PIN_IO
 
 /*
