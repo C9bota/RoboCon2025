@@ -1,5 +1,5 @@
 #include "servo_move.h"
-#include "Wire.h" // I2C通信を使用するために必要
+#include "<Wire.h>" // I2C通信を使用するために必要
 
 // サーボモータ動作モード設定
 void SetServoSyncMode(SERVO_SYNC_MODE mode) {

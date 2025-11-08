@@ -4,6 +4,8 @@
 #include "servo_channel.h"
 #include "servo_command.h"
 
+#define SERVO_IC_I2C_ADDR 8
+
 // サーボモータ動作モード設定
 public void SetServoSyncMode(SERVO_SYNC_MODE mode = SERVO_SYNC_MODE::SYNC_MODE);
 
