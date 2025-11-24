@@ -11,14 +11,21 @@ void handleNoteOnEvent(const MidiNoteEventModel& event) {
 	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 120, 300);  // 振り上げる
 }
 
-// メタイベントを受け取って処理する関数
-void handleMetaEvent(const MidiMetaEventModel& event) {
-	// ここにメタイベント発生時の処理を記述
-	// 例: シリアル出力やテンポ・曲名の取得など
-	// Serial.print("MetaEvent: type=");
-	// Serial.print(event.type);
-	// Serial.print(", data=");
-	// Serial.print(event.data.c_str());
-	// Serial.print(", tick=");
-	// Serial.println(event.tick);
+// 初期化メタイベントを受け取って処理する関数
+void handleInitialMetaEvent(const MidiMetaEventModel& event) {
+	// 初めのメタイベント発生時には、初期化処理を行う
+	Serial.begin(115200);
+    Wire.setClock(100000);
+    Wire.begin();
+    delay(1000);
+    //Serial.println("[TEST] servo_move.cpp 関数テスト開始");
+
+    // サーボモータ動作モード設定
+    SetServoSyncMode(SYNC_MODE);
+    Serial.println("SetServoSyncMode(SYNC_MODE) 呼び出しOK");
+
+    // PWM パルス出力許可
+    AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE);
+    Serial.println("AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE) 呼び出しOK");
+    delay(100);
 }
