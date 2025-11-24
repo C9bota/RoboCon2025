@@ -4611,6 +4611,16 @@
 	)
 	(wire
 		(pts
+			(xy 236.22 40.64) (xy 236.22 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33110d73-b141-4417-a5c7-70796bd902f2")
+	)
+	(wire
+		(pts
 			(xy 114.3 22.86) (xy 114.3 35.56)
 		)
 		(stroke
@@ -4681,7 +4691,7 @@
 	)
 	(wire
 		(pts
-			(xy 176.53 45.72) (xy 237.49 45.72)
+			(xy 176.53 45.72) (xy 236.22 45.72)
 		)
 		(stroke
 			(width 0)
@@ -5011,7 +5021,7 @@
 	)
 	(wire
 		(pts
-			(xy 194.31 48.26) (xy 237.49 48.26)
+			(xy 194.31 48.26) (xy 236.22 48.26)
 		)
 		(stroke
 			(width 0)
@@ -5571,16 +5581,6 @@
 	)
 	(wire
 		(pts
-			(xy 232.41 50.8) (xy 232.41 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c56faf91-829c-4bd8-b7e0-a1da21f90060")
-	)
-	(wire
-		(pts
 			(xy 127 68.58) (xy 132.08 68.58)
 		)
 		(stroke
@@ -5861,6 +5861,16 @@
 	)
 	(wire
 		(pts
+			(xy 233.68 40.64) (xy 236.22 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de4eebc7-758b-4696-9d59-978820623fe8")
+	)
+	(wire
+		(pts
 			(xy 194.31 48.26) (xy 194.31 62.23)
 		)
 		(stroke
@@ -5958,16 +5968,6 @@
 			(type default)
 		)
 		(uuid "e69c08f3-bbad-43e6-9fba-2d6b25df9553")
-	)
-	(wire
-		(pts
-			(xy 232.41 50.8) (xy 237.49 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e8018eec-a7ce-4e4a-b4a6-d15c7a5017e2")
 	)
 	(wire
 		(pts
@@ -10653,7 +10653,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDA")
-		(at 232.41 54.61 0)
+		(at 233.68 40.64 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10662,7 +10662,7 @@
 		(fields_autoplaced yes)
 		(uuid "d3b1ed7a-b647-4acf-9b28-3ce3a818b1bc")
 		(property "Reference" "#PWR030"
-			(at 232.41 60.96 0)
+			(at 227.33 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10671,7 +10671,7 @@
 			)
 		)
 		(property "Value" "GNDA"
-			(at 232.41 59.69 0)
+			(at 232.41 36.83 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10679,7 +10679,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 232.41 54.61 0)
+			(at 233.68 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10688,7 +10688,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 232.41 54.61 0)
+			(at 233.68 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10697,7 +10697,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDA\" , analog ground"
-			(at 232.41 54.61 0)
+			(at 233.68 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10787,7 +10787,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x03")
-		(at 242.57 48.26 0)
+		(at 241.3 45.72 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10796,7 +10796,7 @@
 		(fields_autoplaced yes)
 		(uuid "d5eabb1a-996b-47f7-baf4-2b989261a955")
 		(property "Reference" "J6"
-			(at 245.11 46.9899 0)
+			(at 243.84 44.4499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10805,7 +10805,7 @@
 			)
 		)
 		(property "Value" "S3B-XH-A"
-			(at 245.11 49.5299 0)
+			(at 243.84 46.9899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10814,7 +10814,7 @@
 			)
 		)
 		(property "Footprint" "Connector_JST:JST_XH_S3B-XH-A_1x03_P2.50mm_Horizontal"
-			(at 242.57 48.26 0)
+			(at 241.3 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10823,7 +10823,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 242.57 48.26 0)
+			(at 241.3 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10832,7 +10832,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 242.57 48.26 0)
+			(at 241.3 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
