@@ -1,33 +1,34 @@
 #include "lib/midi_convert.h"
 #include "lib/midi_model.h"
 #include <Wire.h>
-#include "../test_servo_move/lib/servo_command.h"
-#include "../test_servo_move/lib/servo_move.h"
-
-// テスト用: 左腕サーボのチャンネル定義（仮）
-#ifndef SERVO_CHANNEL_LEFT_ARM_DEFINED
-#define SERVO_CHANNEL_LEFT_ARM_DEFINED
-SERVO_CHANNEL LEFT_HAND_CHANNEL = SERVO_CHANNEL::LEFT_ARM; // 実際の値に合わせて修正
-#endif
 
 void setup() {
     Serial.begin(115200);
     Wire.setClock(100000);
     Wire.begin();
     delay(1000);
-    Serial.println("[TEST] MIDIノートオンイベント→サーボ動作テスト");
+    Serial.println("[TEST] midi_convert.cpp 関数テスト開始");
 
-    // サーボモータ動作モード設定
-    SetServoSyncMode(SYNC_MODE);
-    Serial.println("SetServoSyncMode(SYNC_MODE) 呼び出しOK");
-
-    // PWM パルス出力許可
-    AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE);
-    Serial.println("AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE) 呼び出しOK");
-    delay(100);
-
+    // 初期化メタイベントのテストデータを作成
+    MidiMetaEventModel metaEvent;
+    metaEvent.type = 0x51; // 例: テンポ設定
+    metaEvent.data = "TestMeta";
+    metaEvent.tick = 0;
+    handleInitialMetaEvent(metaEvent);
 }
 
+
 void loop() {
-    // 何もしない
+    static unsigned long lastCall = 0;
+    static int count = 0;
+    if (millis() - lastCall > 2000) { // 2秒ごとにノートオンイベント発火
+        lastCall = millis();
+        MidiNoteEventModel noteEvent;
+        noteEvent.channel = 0;
+        noteEvent.note = 60 + (count % 12); // C4から順に
+        noteEvent.velocity = 100;
+        noteEvent.tick = count * 480;
+        handleNoteOnEvent(noteEvent);
+        count++;
+    }
 }

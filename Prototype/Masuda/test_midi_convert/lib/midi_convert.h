@@ -6,7 +6,7 @@
 // ノートオンイベントを受け取って処理するインターフェース
 void handleNoteOnEvent(const MidiNoteEventModel& event);
 
-// メタイベントを受け取って処理するインターフェース
-void handleMetaEvent(const MidiMetaEventModel& event);
+// 開始メタイベントを受け取って初期化処理するインターフェース
+void handleInitialMetaEvent(const MidiMetaEventModel& event);
 
 #endif
