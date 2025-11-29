@@ -5,26 +5,36 @@
 https://personal.qumcum.com/robo_adjust/
 
 ## フォルダ構成
+Arduino IDEは、スケッチフォルダ直下にあるファイルおよび、srcフォルダの中をコンパイル対象とするため、以下のようなフォルダ構成とする。
+各ライブラリは機能ごとにフォルダを分け、src配下へ置くこと。
 
 ```
 RoboCon2025/
-├── README.md              # このファイル
+├── README.md             
 ├── Production/            # 本番用コード
-│   └── .gitkeep
+│   └── qumcum_fes_2025/   # スケッチフォルダ
+│       ├── qumcum_fes_2025.ino   # エントリポイント
+│       └── src/
+│           ├── core/      
+│           ├── midi/      # MIDI読み込み
+│           ├── sd/        # 
+│           └── servo/     # サーボ駆動ライブラリ
+│               ├── lib/
+│               └── src/
+│
 ├── Prototype/             # プロトタイプ開発
 │   ├── Common/            # 共通ライブラリ・ユーティリティ
-│   │   └── .gitkeep
-│   ├── Kubota/            # 久保田のプロトタイプ
-│   │   └── .gitkeep
-│   ├── Masuda/            # 増田のプロトタイプ
-│   │   └── .gitkeep
-│   └── Nakagawa/          # 中川のプロトタイプ
-│       └── .gitkeep
-└── Samples/               # サンプルコード・テスト用
-    ├── .gitkeep
-    ├── Aquestalk.cpp      # 音声合成サンプル
-    ├── Beep.cpp           # ビープ音出力サンプル
-    └── RGB.cpp            # RGB LED制御サンプル
+│   │   └── midifiles      # MIDIファイル
+│   ├── Kubota/           
+│   ├── Masuda/           
+│   └── Nakagawa/          
+|
+└── Samples/               # Qumcum公式サンプルコード
+    ├── Aquestalk.cpp
+    ├── Beep.cpp
+    ├── RGB.cpp
+    └── Servo.cpp
+
 ```
 
 - **Production/**: 本番環境で使用する最終的なコード
