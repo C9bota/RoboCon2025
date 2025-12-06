@@ -5,10 +5,12 @@
 // ノートオンイベントを受け取って処理する関数
 void handleNoteOnEvent(const MidiNoteEventModel& event) {
 	// ロボットの左腕サーボチャンネルはLEFT_HAND_CHANNEL
-	// 角度は例として、下げる: 30度, 上げる: 120度, 動作時間: 300ms
-	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 30, 300);   // 振り下ろす
-	delay(1000);
-	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 120, 300);  // 振り上げる
+	// 角度：45～60
+    // 時間：250ms（bpm120の4つ打ち）
+	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 45, 250);   // 振り下ろす
+	delay(250);
+	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 60, 250);  // 振り上げる
+    delay(250);
 }
 
 // 開始メタイベントを受け取って初期化処理する関数
