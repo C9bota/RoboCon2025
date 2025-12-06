@@ -1,6 +1,6 @@
 
 #include "../lib/midi_convert.h"
-#include "../../test_servo_move/lib/servo_move.h"
+#include "../lib/servo/servo_move.h"
 
 // ノートオンイベントを受け取って処理する関数
 void handleNoteOnEvent(const MidiNoteEventModel& event) {
