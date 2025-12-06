@@ -1,5 +1,5 @@
-#include "lib/midi_convert.h"
-#include "lib/midi_model.h"
+#include "./lib/midi_convert.h"
+#include "./lib/midi_model.h"
 #include <Wire.h>
 
 void setup() {
