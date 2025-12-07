@@ -21,7 +21,7 @@ void setup() {
 void loop() {
     static unsigned long lastCall = 0;
     static int count = 0;
-    if (millis() - lastCall > 2000) { // 2秒ごとにノートオンイベント発火
+    if (millis() - lastCall > 500) { // 2秒ごとにノートオンイベント発火
         lastCall = millis();
         MidiNoteEventModel noteEvent;
         noteEvent.channel = 0;
