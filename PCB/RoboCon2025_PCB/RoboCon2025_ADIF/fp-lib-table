@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "RoboCon2025_ADIF")(type "KiCad")(uri "${KIPRJMOD}/RoboCon2025_ADIF.pretty")(options "")(descr ""))
+)
