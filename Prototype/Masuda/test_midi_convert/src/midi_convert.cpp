@@ -9,9 +9,9 @@ void handleNoteOnEvent(const MidiNoteEventModel& event) {
 	// ロボットの左腕サーボチャンネルはLEFT_HAND_CHANNEL
 	// 角度：45～60
     // 時間：250ms（bpm120の4つ打ち）
-	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 45, 250);   // 振り下ろす
+	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 450, 250);   // 振り下ろす
 	delay(250);
-	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 60, 250);  // 振り上げる
+	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 600, 250);  // 振り上げる
     delay(250);
 }
 
