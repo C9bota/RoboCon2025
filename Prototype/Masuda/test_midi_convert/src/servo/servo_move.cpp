@@ -1,4 +1,4 @@
-#include "lib/servo/servo_move.h"
+#include "../../lib/servo/servo_move.h"
 #include <Wire.h> // I2C通信を使用するために必要
 
 // サーボモータ動作モード設定

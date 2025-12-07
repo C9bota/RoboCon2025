@@ -1,6 +1,9 @@
 #include "../lib/midi_convert.h"
 #include "../lib/servo/servo_move.h"
 
+#include <Arduino.h>
+#include <Wire.h>
+
 // ノートオンイベントを受け取って処理する関数
 void handleNoteOnEvent(const MidiNoteEventModel& event) {
 	// ロボットの左腕サーボチャンネルはLEFT_HAND_CHANNEL
