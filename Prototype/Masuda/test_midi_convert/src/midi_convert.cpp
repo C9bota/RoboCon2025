@@ -4,18 +4,9 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-// ノートオンイベントを受け取って処理する関数
-void handleNoteOnEvent(const MidiNoteEventModel& event) {
-	// ロボットの左腕サーボチャンネルはLEFT_HAND_CHANNEL
-	// 角度：45～60
-    // 時間：250ms（bpm120の4つ打ち）
-	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 450, 50);   // 振り下ろす
-    StartServoSync();
-	delay(50);
-	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 600, 50);  // 振り上げる
-    StartServoSync();
-    delay(50);
-}
+#define ACOUSTIC_SNARE 38
+#define BASS_DRUM_1 36
+#define CLOSED_HI_HAT 42
 
 // 開始メタイベントを受け取って初期化処理する関数
 void handleInitialMetaEvent(const MidiMetaEventModel& event) {
@@ -27,4 +18,42 @@ void handleInitialMetaEvent(const MidiMetaEventModel& event) {
     AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE);
     Serial.println("AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE) 呼び出しOK");
     delay(100);
+}
+
+// ノートオンイベントを受け取って処理する関数
+void handleNoteOnEvent(const MidiNoteEventModel& event) {
+    if (event.note == ACOUSTIC_SNARE) // MIDIノート番号38はベル
+    {
+        ringBell();
+    }
+    else if (event.note == BASS_DRUM_1) // MIDIノート番号36はバスドラム
+    {
+        hitBassDrum();
+    }
+    else if (event.note == CLOSED_HI_HAT) // MIDIノート番号42はクローズドハイハット
+    {
+        hitClosedHiHat();
+    }
+}
+
+// ベル演奏
+void ringBell() {
+    // ロボットの左腕サーボチャンネルはLEFT_HAND_CHANNEL
+	// 角度：45～60
+    // 時間：250ms（bpm120の4つ打ち）
+	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 450, 50);   // 振り下ろす
+    StartServoSync();
+	delay(50);
+	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 600, 50);  // 振り上げる
+    StartServoSync();
+    delay(50);
+}
+
+// バスドラム演奏
+void hitBassDrum() {
+    // TODO: ソレノイドを動作させてドラムを叩く処理をここに実装
+}
+
+void hitClosedHiHat() {
+    // TODO: ソレノイドを動作させてハイハットを叩く処理をここに実装
 }
