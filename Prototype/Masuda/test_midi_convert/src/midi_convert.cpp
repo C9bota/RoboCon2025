@@ -8,6 +8,11 @@
 #define BASS_DRUM_1 36
 #define CLOSED_HI_HAT 42
 
+static void ringBell();
+static void hitBassDrum();
+static void hitClosedHiHat();
+static void defaultAction();
+
 // 開始メタイベントを受け取って初期化処理する関数
 void handleInitialMetaEvent(const MidiMetaEventModel& event) {
     // サーボモータ動作モード設定
@@ -41,7 +46,7 @@ void handleNoteOnEvent(const MidiNoteEventModel& event) {
 }
 
 // ベル演奏
-void ringBell() {
+static void ringBell() {
     // ロボットの左腕サーボチャンネルはLEFT_HAND_CHANNEL
 	// 角度：45～60
     // 時間：250ms（bpm120の4つ打ち）
@@ -54,17 +59,17 @@ void ringBell() {
 }
 
 // バスドラム演奏
-void hitBassDrum() {
+static void hitBassDrum() {
     // TODO: ソレノイドを動作させてドラムを叩く処理をここに実装
 }
 
 // クローズドハイハット演奏
-void hitClosedHiHat() {
+static void hitClosedHiHat() {
     // TODO: ソレノイドを動作させてハイハットを叩く処理をここに実装
 }
 
 // デフォルト動作
-void defaultAction() {
+static void defaultAction() {
     // ロボットの左腕サーボチャンネルはLEFT_HAND_CHANNEL
 	// 角度：45～60
     // 時間：250ms（bpm120の4つ打ち）
