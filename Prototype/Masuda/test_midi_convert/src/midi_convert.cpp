@@ -34,6 +34,10 @@ void handleNoteOnEvent(const MidiNoteEventModel& event) {
     {
         hitClosedHiHat();
     }
+    else {
+        // 未対応のノート番号の場合はデフォルト動作
+        defaultAction();
+    }
 }
 
 // ベル演奏
@@ -54,6 +58,20 @@ void hitBassDrum() {
     // TODO: ソレノイドを動作させてドラムを叩く処理をここに実装
 }
 
+// クローズドハイハット演奏
 void hitClosedHiHat() {
     // TODO: ソレノイドを動作させてハイハットを叩く処理をここに実装
+}
+
+// デフォルト動作
+void defaultAction() {
+    // ロボットの左腕サーボチャンネルはLEFT_HAND_CHANNEL
+	// 角度：45～60
+    // 時間：250ms（bpm120の4つ打ち）
+	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 450, 50);   // 振り下ろす
+    StartServoSync();
+	delay(50);
+	SetServoTargetByAngle(LEFT_HAND_CHANNEL, 600, 50);  // 振り上げる
+    StartServoSync();
+    delay(50);
 }
