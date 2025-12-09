@@ -24,6 +24,7 @@ const uint16_t EXPECTED_CHANNELS = 2;
 // バッファサイズ（バイト） - 必要に応じて調整
 const size_t BUFFER_SIZE = 4096;
 
+
 // ---------- SdFat オブジェクト ----------
 SdFat sd;
 SdFile wavFile;
@@ -206,10 +207,9 @@ bool playWavFile(SdFile &file) {
 // ---------- setup / loop ----------
 void setup() {
   Serial.begin(115200);
-  delay(100);
+  delay(2000);
 
   Serial.println("Starting SD + I2S WAV player...");
-
   // SPI 初期化（ユーザー指定のピンで）
   // SPI.begin(SCK, MISO, MOSI, SS) : 第4引数は CS の初期ピン（使う場合）
   // ① SPIピンを設定して初期化
@@ -247,7 +247,6 @@ void setup() {
   // 再生後はファイルを閉じる
   wavFile.close();
   Serial.println("WAV file closed.");
-
   // ここで必要なら i2s_driver_uninstall(I2S_NUM_0);
 }
 
