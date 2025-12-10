@@ -4,12 +4,18 @@
 #include <MD_MIDIFile.h>
 #include <SdFat.h>
 #include <string.h>
+#include <string>
+
+#include "../../lib/midi/midi_convert.h"
 
 namespace {
 
 constexpr unsigned long kLogIntervalMs = 1000;
 constexpr size_t kMaxPathLength = 64;
-constexpr size_t kMidiPreviewEvents = 8;
+constexpr size_t kMidiPreviewEvents = 0;  // 0: unlimited until conditions met
+constexpr size_t kMaxNoteLogLines = 4;
+constexpr size_t kMaxMetaLogLines = 4;
+constexpr size_t kMaxDebugEvents = 6;
 
 SdFat gSd;
 MD_MIDIFile gMidiFile;
@@ -26,8 +32,12 @@ char gLastFilePath[kMaxPathLength] = {0};
 bool gFileStatusKnown = false;
 bool gLastFileExists = false;
 
-bool gMidiNoteLogged = false;
-bool gMidiMetaLogged = false;
+bool gInitialMetaHandled = false;
+bool gMetaLogPrinted = false;
+size_t gNoteLogCount = 0;
+size_t gNoteOnDispatchCount = 0;
+size_t gMetaLogCount = 0;
+size_t gDebugEventCount = 0;
 
 void logCardMissing() {
     Serial.println("[SD] カード未検出です。カードを挿入してからリセットしてください");
@@ -55,34 +65,75 @@ bool ensureSdReady() {
 }
 
 void handleMetaEvent(const meta_event* mev) {
-    if (mev == nullptr || gMidiMetaLogged) {
+    if (mev == nullptr) {
         return;
     }
 
-    Serial.printf("[MIDI] メタイベント type=0x%02X size=%u\n", mev->type, static_cast<unsigned>(mev->size));
-    gMidiMetaLogged = true;
+    if (!gMetaLogPrinted && gMetaLogCount < kMaxMetaLogLines) {
+        Serial.printf("[MIDI] メタイベント track=%u type=0x%02X size=%u\n",
+                      static_cast<unsigned>(mev->track),
+                      mev->type,
+                      static_cast<unsigned>(mev->size));
+        gMetaLogCount++;
+        gMetaLogPrinted = true;
+    }
+
+    if (gInitialMetaHandled) {
+        return;
+    }
+
+    MidiMetaEventModel meta{};
+    meta.type = mev->type;
+    meta.tick = 0;  // MD_MIDIFile は tick 情報を提供しないため 0 を設定
+    meta.data.assign(reinterpret_cast<const char*>(mev->data),
+                     reinterpret_cast<const char*>(mev->data + mev->size));
+
+    handleInitialMetaEvent(meta);
+    gInitialMetaHandled = true;
 }
 
 void handleMidiEvent(midi_event* ev) {
-    if (ev == nullptr || ev->size < 1 || gMidiNoteLogged) {
+    if (ev == nullptr || ev->size < 1) {
         return;
     }
 
     const uint8_t command = ev->data[0] & 0xF0;
-    if (command == 0x90 && ev->size >= 3 && ev->data[2] != 0) {
-        Serial.printf("[MIDI] NoteOn ch=%u note=%u vel=%u\n",
-                      static_cast<unsigned>(ev->channel + 1),
-                      ev->data[1],
-                      ev->data[2]);
-        gMidiNoteLogged = true;
+    const bool isNoteOn = (command == 0x90 && ev->size >= 3 && ev->data[2] != 0);
+    const bool isNoteOff = (command == 0x80 && ev->size >= 3) || (command == 0x90 && ev->size >= 3 && ev->data[2] == 0);
+
+    if (gDebugEventCount < kMaxDebugEvents) {
+        Serial.printf("[MIDI] event track=%u cmd=0x%02X size=%u\n",
+                      static_cast<unsigned>(ev->track),
+                      static_cast<unsigned>(command),
+                      static_cast<unsigned>(ev->size));
+        gDebugEventCount++;
+    }
+
+    if (isNoteOn) {
+        MidiNoteEventModel note{};
+        note.channel = ev->channel;
+        note.note = ev->data[1];
+        note.velocity = ev->data[2];
+        note.tick = 0;  // tick 情報は未使用のため 0
+
+        handleNoteOnEvent(note);
+        gNoteOnDispatchCount++;
+
+        if (gNoteLogCount < kMaxNoteLogLines) {
+            Serial.printf("[MIDI] NoteOn ch=%u note=%u vel=%u\n",
+                          static_cast<unsigned>(ev->channel + 1),
+                          ev->data[1],
+                          ev->data[2]);
+            gNoteLogCount++;
+        }
         return;
     }
 
-    if (command == 0x80 && ev->size >= 3) {
+    if (isNoteOff && gNoteLogCount < kMaxNoteLogLines) {
         Serial.printf("[MIDI] NoteOff ch=%u note=%u\n",
                       static_cast<unsigned>(ev->channel + 1),
                       ev->data[1]);
-        gMidiNoteLogged = true;
+        gNoteLogCount++;
     }
 }
 
@@ -228,8 +279,12 @@ bool testMidiLoad(const char* path) {
     gMidiFile.setMidiHandler(handleMidiEvent);
     gMidiFile.setMetaHandler(handleMetaEvent);
 
-    gMidiNoteLogged = false;
-    gMidiMetaLogged = false;
+    gInitialMetaHandled = false;
+    gMetaLogPrinted = false;
+    gNoteLogCount = 0;
+    gNoteOnDispatchCount = 0;
+    gMetaLogCount = 0;
+    gDebugEventCount = 0;
 
     const int loadResult = gMidiFile.load(path);
     if (loadResult != MD_MIDIFile::E_OK) {
@@ -238,14 +293,28 @@ bool testMidiLoad(const char* path) {
     }
 
     size_t eventsProcessed = 0;
-    while (!gMidiFile.isEOF() && eventsProcessed < kMidiPreviewEvents) {
+    while (!gMidiFile.isEOF()) {
         gMidiFile.getNextEvent();
         eventsProcessed++;
+
+        if (gInitialMetaHandled && gNoteOnDispatchCount > 0) {
+            break;
+        }
+
+        if (kMidiPreviewEvents > 0 && eventsProcessed >= kMidiPreviewEvents) {
+            break;
+        }
     }
 
     gMidiFile.close();
-    Serial.printf("[MIDI] 読み込み確認完了 (events=%lu)\n", static_cast<unsigned long>(eventsProcessed));
-    return true;
+    const bool handledMeta = gInitialMetaHandled;
+    const bool handledNote = (gNoteOnDispatchCount > 0);
+    Serial.printf("[MIDI] 読み込み確認完了 (events=%lu, meta=%s, note=%s)\n",
+                  static_cast<unsigned long>(eventsProcessed),
+                  handledMeta ? "ok" : "none",
+                  handledNote ? "ok" : "none");
+
+    return handledMeta && handledNote;
 }
 
 void update() {
