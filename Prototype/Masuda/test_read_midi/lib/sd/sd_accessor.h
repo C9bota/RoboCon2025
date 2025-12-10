@@ -5,12 +5,17 @@
 
 class Print;
 class SdFat;
+struct MidiNoteEventModel;
 
 namespace sd_diag {
+
+using NoteOnEventCallback = void (*)(const MidiNoteEventModel&);
 
 void begin(int csPin);
 void configureTestFile(const char* path, size_t previewBytes);
 void update();
+
+void setNoteOnHandler(NoteOnEventCallback onNoteOn);
 
 bool isReady();
 bool fileExists(const char* path);
