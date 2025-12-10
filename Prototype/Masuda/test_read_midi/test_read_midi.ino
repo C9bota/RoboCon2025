@@ -1,10 +1,11 @@
 /**
- * SDカードが利用可能かどうかを確認する簡易テストスケッチ。
+ * SDカードおよびMIDIファイルを1秒おきに診断するテストスケッチ。
  */
 
 #include <Arduino.h>
 #include <SPI.h>
-#include "./lib/sd/sd_check.h"
+
+#include "./lib/sd/sd_accessor.h"
 
 namespace {
 
@@ -18,21 +19,15 @@ void setup() {
 	Serial.begin(115200);
 	delay(1000);  // シリアルモニタが接続される猶予を持たせる
 
-	Serial.println("[SETUP] SD presence check start");
+	Serial.println("[SETUP] SD accessor start");
 
 	SPI.begin();
 
-	sd_check::begin(kSdCsPin);
-
-	if (sd_check::fileExists(kTestFilePath)) {
-		Serial.println("[SETUP] ファイルの先頭データを読み込みます");
-		sd_check::readFile(kTestFilePath, Serial, kPreviewBytes);
-	} else {
-		Serial.println("[SETUP] 指定ファイルが見つかりません");
-	}
+	sd_diag::begin(kSdCsPin);
+	sd_diag::configureTestFile(kTestFilePath, kPreviewBytes);
 }
 
 void loop() {
-	sd_check::update();
+	sd_diag::update();
 }
 
