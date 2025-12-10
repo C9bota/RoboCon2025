@@ -1,0 +1,41 @@
+#ifndef SERVO_COMMAND_H
+#define SERVO_COMMAND_H
+
+#include <map>
+
+enum SERVO_COMMAND {
+    SET_SERVO_SYNC_MODE = 0,
+    START_SERVO_SYNC = 1,
+    ALLOW_PWM_PULSE_OUTPUT = 2,
+    SET_SERVO_TARGET_BY_PULSE_WIDTH = 3,
+    SET_SERVO_TARGET_BY_ANGLE = 4,
+    GET_SERVO_POSITION_BY_PULSE_WIDTH = 5,
+    GET_SERVO_POSITION_BY_ANGLE = 6
+};
+
+struct BufferSizes {
+    int send_buffer_size;
+    int receive_buffer_size;
+};
+
+const std::map<SERVO_COMMAND, BufferSizes> COMMAND_BUFFER_SIZES = {
+    {SET_SERVO_SYNC_MODE, {2, 0}},
+    {START_SERVO_SYNC, {1, 0}},
+    {ALLOW_PWM_PULSE_OUTPUT, {3, 0}},
+    {SET_SERVO_TARGET_BY_PULSE_WIDTH, {6, 0}},
+    {SET_SERVO_TARGET_BY_ANGLE, {6, 0}},
+    {GET_SERVO_POSITION_BY_PULSE_WIDTH, {2, 2}},
+    {GET_SERVO_POSITION_BY_ANGLE, {2, 2}}
+};
+
+enum SERVO_SYNC_MODE {
+    ANSUNC_MODE = 0,
+    SYNC_MODE = 1
+};
+
+enum SERVO_PULSE_OUTPUT {
+    DISABLE = 0,
+    ENABLE = 1
+};
+
+# endif
