@@ -1,5 +1,6 @@
 #include "../../lib/midi/midi_convert.h"
 #include "../../lib/servo/servo_move.h"
+#include "../../lib/exio/exio.h"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -60,12 +61,20 @@ static void ringBell() {
 
 // バスドラム演奏
 static void hitBassDrum() {
-    // TODO: ソレノイドを動作させてドラムを叩く処理をここに実装
+    // ソレノイドを動作させてドラムを叩く処理をここに実装
+    WriteIoExpanderPin(0, 1);   // GPA0端子をHにする
+    delay(50);
+    WriteIoExpanderPin(0, 0);   // GPA0端子をLにする
+    delay(50);
 }
 
 // クローズドハイハット演奏
 static void hitClosedHiHat() {
-    // TODO: ソレノイドを動作させてハイハットを叩く処理をここに実装
+    // ソレノイドを動作させてハイハットを叩く処理をここに実装
+    WriteIoExpanderPin(0, 1);   // GPA0端子をHにする
+    delay(50);
+    WriteIoExpanderPin(0, 0);   // GPA0端子をLにする
+    delay(50);
 }
 
 // デフォルト動作
