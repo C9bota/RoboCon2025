@@ -13,7 +13,8 @@ namespace {
 
 constexpr int kSdCsPin = 5;  // 環境に合わせてSDのCSピンを設定
 //constexpr char kTestFilePath[] = "/test.mid";
-constexpr char kTestFilePath[] = "/test-1track.mid";
+//constexpr char kTestFilePath[] = "/test-1track.mid";
+constexpr char kTestFilePath[] = "/drums.mid";
 constexpr size_t kPreviewBytes = 128;
 
 } // namespace

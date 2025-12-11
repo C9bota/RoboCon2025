@@ -18,18 +18,7 @@ static void defaultAction();
 
 // 開始メタイベントを受け取って初期化処理する関数
 void handleInitialMetaEvent(const MidiMetaEventModel& event) {
-    if (event.note == BASS_DRUM_1) // MIDIノート番号36はバスドラム
-    {
-        initSolenoid();
-    }
-    else if (event.note == CLOSED_HI_HAT) // MIDIノート番号42はクローズドハイハット
-    {
-        initSolenoid();
-    }
-    else {
-        // 未対応のノート番号の場合はデフォルト動作
-        initServo();
-    }
+    initServo();
 }
 
 // サーボモータの初期化
@@ -57,6 +46,7 @@ static void initSolenoid() {
 
 // ノートオンイベントを受け取って処理する関数
 void handleNoteOnEvent(const MidiNoteEventModel& event) {
+    Serial.println("event.note = " + String(event.note));
     if (event.note == ACOUSTIC_SNARE) // MIDIノート番号38はベル
     {
         ringBell();
