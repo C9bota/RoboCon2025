@@ -9,6 +9,8 @@
 #define BASS_DRUM_1 36
 #define CLOSED_HI_HAT 42
 
+static void initServo();
+static void initSolenoid();
 static void ringBell();
 static void hitBassDrum();
 static void hitClosedHiHat();
@@ -16,6 +18,22 @@ static void defaultAction();
 
 // 開始メタイベントを受け取って初期化処理する関数
 void handleInitialMetaEvent(const MidiMetaEventModel& event) {
+    if (event.note == BASS_DRUM_1) // MIDIノート番号36はバスドラム
+    {
+        initSolenoid();
+    }
+    else if (event.note == CLOSED_HI_HAT) // MIDIノート番号42はクローズドハイハット
+    {
+        initSolenoid();
+    }
+    else {
+        // 未対応のノート番号の場合はデフォルト動作
+        initServo();
+    }
+}
+
+// サーボモータの初期化
+static void initServo() {
     // サーボモータ動作モード設定
     SetServoSyncMode(SYNC_MODE);
     Serial.println("SetServoSyncMode(SYNC_MODE) 呼び出しOK");
@@ -23,6 +41,17 @@ void handleInitialMetaEvent(const MidiMetaEventModel& event) {
     // PWM パルス出力許可
     AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE);
     Serial.println("AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE) 呼び出しOK");
+    delay(100);
+}
+
+// ソレノイドの初期化
+static void initSolenoid() {
+    // IOエキスパンダ初期化
+    if (!InitIoExpander(DEV_MCP23017)) {
+        Serial.println("IOエキスパンダ初期化成功");
+    } else {
+        Serial.println("IOエキスパンダ初期化失敗");
+    }
     delay(100);
 }
 
