@@ -11,7 +11,6 @@
 constexpr uint8_t kRedLedPin = 32;
 
 static void initServo();
-static void initSolenoid();
 static void ringBell();
 static void hitBassDrum();
 static void hitClosedHiHat();
@@ -72,16 +71,20 @@ static void ringBell() {
 
 // バスドラム演奏
 static void hitBassDrum() {
+    /*
     setRedLed(false); // バスドラムのノートで赤色LEDを消灯
     delay(100);
     setRedLed(true);  // 元に戻す
+    */
 }
 
 // クローズドハイハット演奏
 static void hitClosedHiHat() {
+    /*
     setRedLed(false);
     delay(100);
     setRedLed(true);  // 元に戻す
+    */
 }
 
 // デフォルト動作

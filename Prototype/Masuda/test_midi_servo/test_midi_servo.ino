@@ -12,7 +12,7 @@
 namespace {
 
 constexpr int kSdCsPin = 5;  // 環境に合わせてSDのCSピンを設定
-constexpr int kRedLedPin = 32;  // RGB-LEDの赤色ピン
+//constexpr int kRedLedPin = 32;  // RGB-LEDの赤色ピン
 //constexpr char kTestFilePath[] = "/test.mid";
 //constexpr char kTestFilePath[] = "/test-1track.mid";
 //constexpr char kTestFilePath[] = "/drums.mid";
@@ -31,8 +31,8 @@ void setup() {
 	Wire.setClock(100000);
 	Wire.begin();
 
-	pinMode(kRedLedPin, OUTPUT);
-	digitalWrite(kRedLedPin, HIGH);  // 初期状態では点灯
+	//pinMode(kRedLedPin, OUTPUT);
+	//digitalWrite(kRedLedPin, HIGH);  // 初期状態では点灯
     // 初期化メタイベントのテストデータを作成
     MidiMetaEventModel metaEvent;
     metaEvent.type = 0x51; // 例: テンポ設定
