@@ -76,6 +76,12 @@ static void hitBassDrum() {
     delay(100);
     setRedLed(true);  // 元に戻す
     */
+    SetServoTargetByAngle(RIGHT_HAND_CHANNEL, 450, 50);   // 振り下ろす
+    StartServoSync();
+	delay(50);
+	SetServoTargetByAngle(RIGHT_HAND_CHANNEL, 600, 50);  // 振り上げる
+    StartServoSync();
+    delay(50);
 }
 
 // クローズドハイハット演奏
@@ -85,6 +91,12 @@ static void hitClosedHiHat() {
     delay(100);
     setRedLed(true);  // 元に戻す
     */
+    SetServoTargetByAngle(RIGHT_HAND_CHANNEL, 450, 50);   // 振り下ろす
+    StartServoSync();
+	delay(50);
+	SetServoTargetByAngle(RIGHT_HAND_CHANNEL, 600, 50);  // 振り上げる
+    StartServoSync();
+    delay(50);
 }
 
 // デフォルト動作
