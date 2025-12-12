@@ -6,7 +6,7 @@
 
 #define ACOUSTIC_SNARE 38
 #define BASS_DRUM_1 36
-#define CLOSED_HI_HAT 42
+#define CLOSED_HI_HAT 46
 
 //constexpr uint8_t kRedLedPin = 32;
 
@@ -31,6 +31,7 @@ static void initServo() {
 
     // PWM パルス出力許可
     AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE);
+    AllowPwmPulseOutput(RIGHT_HAND_CHANNEL, ENABLE);
     Serial.println("AllowPwmPulseOutput(LEFT_HAND_CHANNEL, ENABLE) 呼び出しOK");
     delay(100);
 }
