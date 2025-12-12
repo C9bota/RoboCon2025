@@ -8,18 +8,18 @@
 #define BASS_DRUM_1 36
 #define CLOSED_HI_HAT 42
 
-constexpr uint8_t kRedLedPin = 32;
+//constexpr uint8_t kRedLedPin = 32;
 
 static void initServo();
 static void ringBell();
 static void hitBassDrum();
 static void hitClosedHiHat();
 static void defaultAction();
-static void setRedLed(bool on);
+//static void setRedLed(bool on);
 
 // 開始メタイベントを受け取って初期化処理する関数
 void handleInitialMetaEvent(const MidiMetaEventModel& event) {
-    setRedLed(true); // 初期状態は点灯
+    //setRedLed(true); // 初期状態は点灯
     initServo();
 }
 
@@ -102,6 +102,8 @@ static void defaultAction() {
     */
 }
 
+/*
 static void setRedLed(bool on) {
     digitalWrite(kRedLedPin, on ? HIGH : LOW);
 }
+*/
